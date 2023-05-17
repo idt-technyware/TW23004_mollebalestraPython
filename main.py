@@ -2,6 +2,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore, db, storage
 import threading
 import google.auth.exceptions
+import requests.exceptions
 import time
 
 damage_1 = 0.0
@@ -40,6 +41,8 @@ class MyThread(threading.Thread):
                 time.sleep(1)
         except google.auth.exceptions.TransportError as ex:
             print(f"A TransportError occurred: {ex}")
+        except requests.exceptions.ConnectionError as ex:
+            print(f"A Connection occurred: {ex}")
         except Exception as ex:
             print(f"An unknown error occurred: {ex}")
 
@@ -95,6 +98,8 @@ def handle_change(event, user_id, device_name, topic_ref, code1, code2, code3, c
                     pass'''
         except google.auth.exceptions.TransportError as ex:
             print(f"A TransportError occurred: {ex}")
+        except requests.exceptions.ConnectionError as ex:
+            print(f"A Connection occurred: {ex}")
         except Exception as ex:
             print(f"An unknown error occurred: {ex}")
 
