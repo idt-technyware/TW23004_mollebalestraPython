@@ -69,6 +69,7 @@ def handle_change(event, user_id, device_name, topic_ref, code1, code2, code3, c
             # if get_log equals 1, write some variables and change it back to 0
             if get_log == 1:
                 print(f"Received request for logs for device {device_name}")
+
                 # start the thread
                 thread = start_thread(user_id, device_name)
                 time.sleep(1)
@@ -77,6 +78,18 @@ def handle_change(event, user_id, device_name, topic_ref, code1, code2, code3, c
                 #in base ai codici dei sensori: code1, code2 etc...
 
                 stop_thread(thread)
+                topic_get = topic_ref.get()
+
+                damage_1 = topic_get['last_damage_1']
+                damage_2 = topic_get['last_damage_2']
+                damage_3 = topic_get['last_damage_3']
+                damage_4 = topic_get['last_damage_4']
+                damage_5 = topic_get['last_damage_5']
+                damage_6 = topic_get['last_damage_6']
+                damage_7 = topic_get['last_damage_7']
+                damage_8 = topic_get['last_damage_8']
+
+
                 topic_ref.update({
                     'last_damage_1': str(damage_1),
                     'last_damage_2': str(damage_2),
@@ -151,6 +164,7 @@ for device in devices_ref.stream():
     # Reference to the topic in Realtime Database
     topic_ref = db.reference(topic)
     topic_ref2 = db.reference(topic2)
+
 
     # Subscribe to the topic and start listening for changes
 
